@@ -21,8 +21,8 @@ public interface AuthenticationResource {
 
     @POST
     @Path("/login")
-    @Produces(MediaType.APPLICATION_JSON)
-    public UserTokenState createAuthenticationToken(JwtAuthenticationRequest authenticationRequest) throws AuthenticationException, IOException;
+    @Produces(MediaType.APPLICATION_JSON) //  public UserTokenState
+    ResponseEntity<?> createAuthenticationToken(JwtAuthenticationRequest authenticationRequest) throws AuthenticationException, IOException;
 
     @POST
     @Path("/refresh")

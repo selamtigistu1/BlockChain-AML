@@ -3,6 +3,7 @@ package com.springjwt.Authentication.controller;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -42,7 +43,7 @@ public class AuthenticationController implements AuthenticationResource {
     private CustomUserDetailsService userDetailsService;
 
     @Override
-    public UserTokenState createAuthenticationToken(JwtAuthenticationRequest authenticationRequest) throws AuthenticationException, IOException {
+    public ResponseEntity<?> createAuthenticationToken(JwtAuthenticationRequest authenticationRequest) throws AuthenticationException, IOException {
         log.info("Create Jwt Token");
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
@@ -54,7 +55,10 @@ public class AuthenticationController implements AuthenticationResource {
         User user = (User) authentication.getPrincipal();
         String jws = CommonUtil.BEARER + " " + tokenHelper.generateToken(user.getUsername());
         int expiresIn = tokenHelper.getExpiredIn();
-        return new UserTokenState(jws, expiresIn);
+        Map<String, Object> response = new HashMap<>(); //new
+        response.put( "token",new UserTokenState(jws, expiresIn));
+        response.put("user details",user);
+        return  ResponseEntity.ok(response.);//new UserTokenState(jws, expiresIn);
     }
 
     @Override

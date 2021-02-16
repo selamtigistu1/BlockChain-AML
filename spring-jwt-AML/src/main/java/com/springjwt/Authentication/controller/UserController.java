@@ -2,10 +2,16 @@ package com.springjwt.Authentication.controller;
 
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.springjwt.Authentication.model.Authority;
+import com.springjwt.Authentication.model.UserRoleName;
+import com.springjwt.Authentication.repository.AuthorityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.springjwt.Authentication.api.UserResource;
@@ -20,6 +26,9 @@ public class UserController implements UserResource {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    AuthorityRepository authorityRepo;
 
     @Override
     public User loadById(@PathVariable Long userId) {
@@ -39,8 +48,13 @@ public class UserController implements UserResource {
     }
 
     @Override
+    @Transactional
     public User addUser(User user) {
         log.info("create user");
+        List<Authority> auths = new ArrayList<>();
+        auths.add(authorityRepo.findByName(UserRoleName.ROLE_USER));
+        user.setAuthorities(auths);
+
         return userService.addUser(user);
     }
 }

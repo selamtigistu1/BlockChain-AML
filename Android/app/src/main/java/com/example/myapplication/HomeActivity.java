@@ -24,7 +24,7 @@ import retrofit2.Response;
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
     CardView createaccounts, viewaccts, buytokens, selltokens, viewtxns;
     SharedPreferences sharedPreferences;
-    String usertoken;
+    String usertoken,role;
     Intent crtacct, login, viewacct;
     private TokenManager tokenmanager;
 
@@ -45,6 +45,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         sharedPreferences = getApplicationContext().getSharedPreferences("Bearer", Context.MODE_PRIVATE);
         usertoken = sharedPreferences.getString("jwttoken", "");
+        role=sharedPreferences.getString("role","");
         //
         createaccounts = (CardView) findViewById(R.id.createaccounts);
         viewaccts = (CardView) findViewById(R.id.viewaccounts);
@@ -63,13 +64,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.createaccounts:
+                if(role.equals("ROLE_USER")){
                 createAccounts();
-                startActivity(crtacct);
+                startActivity(crtacct);}
                 break;
             case R.id.viewaccounts:
                 //createAccounts();
+                if(role.equals("ROLE_ADMIN")){
                 startActivity(viewacct);
-                break;
+                break;}
             case R.id.buytokens:
                 break;
             case R.id.selltokens:

@@ -3,6 +3,7 @@ package com.example.myapplication;
 import org.joda.time.LocalDate;
 
 import java.util.Date;
+import java.util.List;
 
 public class Register {
     Long id;
@@ -21,7 +22,7 @@ public class Register {
     String streetno;
     String instemail;
     Long studentid;
-
+    List<String> Authority;
     public Register() {
     }
 
@@ -151,5 +152,21 @@ public class Register {
 
     public void setStudentid(Long studentid) {
         this.studentid = studentid;
+    }
+
+    public String getStreetname() {
+        return streetname;
+    }
+
+    public void setStreetname(String streetname) {
+        this.streetname = streetname;
+    }
+
+    public List<String> getAuthority() {
+        return Authority;
+    }
+
+    public void setAuthority(List<String> authority) {
+        Authority = authority;
     }
 }

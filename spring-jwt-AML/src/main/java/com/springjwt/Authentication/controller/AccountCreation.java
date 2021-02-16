@@ -1,16 +1,18 @@
 package com.springjwt.Authentication.controller;
 
-import com.springjwt.Authentication.model.CreateAccount;
-import com.springjwt.Authentication.model.User;
+import com.springjwt.Authentication.model.*;
+import com.springjwt.Authentication.repository.AuthorityRepository;
 import com.springjwt.Authentication.repository.UserRepository;
 import com.springjwt.Authentication.service.AccountService;
 import com.springjwt.Authentication.api.CreateAccounts;
-import com.springjwt.Authentication.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.stellar.sdk.KeyPair;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -22,10 +24,14 @@ public class AccountCreation implements CreateAccounts {
     @Autowired
     UserRepository us;
 
+    @Autowired
+    AuthorityRepository authorityRepo;
+
     User user1;
     Account createacc;
+
     @Override
-    public Account saveAccount(CreateAccount account)  {
+    public Account saveAccount(CreateAccount account) {
         //
         KeyPair pair = KeyPair.random();
 
@@ -43,18 +49,17 @@ public class AccountCreation implements CreateAccounts {
 //////}}
 ////
 
-        user1=us.findByUsername(account.getUsername());
+        user1 = us.findByUsername(account.getUsername());
         createacc = new Account();
         createacc.setAccountName(account.getAccountname());
         createacc.setPivatekey(new String(pair.getSecretSeed()));
         createacc.setPublickey(new String(pair.getPublicKey()));
         createacc.setUser(user1);
-
         return acctservice.addAccount(createacc);
     }
 
     @Override
     public ResponseEntity<?> loadAll() {
-         return ResponseEntity.accepted().body(this.acctservice.findAll());
+        return ResponseEntity.accepted().body(this.acctservice.findAll());
     }
 }

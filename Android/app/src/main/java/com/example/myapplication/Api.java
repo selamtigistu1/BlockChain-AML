@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import com.example.myapplication.LoginResponse.Example;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -7,7 +9,6 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 
 public interface Api {
 
@@ -18,7 +19,7 @@ public interface Api {
     Call<AccountRegister> accountregister(@Header("Authorization") String authorization, @Body CreateAccount acc);
 
     @POST("auth/login")
-    Call<UserTokenState> createPost(@Body UsernamePassReq usernamePassReq);
+    Call<Example> createPost(@Body UsernamePassReq user);
 
     @GET("users/all")
     Call<List<Register>> getUsers(@Header("Authorization") String authorization);

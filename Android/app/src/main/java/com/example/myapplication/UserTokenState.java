@@ -3,6 +3,7 @@ package com.example.myapplication;
 public class UserTokenState {
     private String access_token;
     private Long expires_in;
+    private String role;
 
     public UserTokenState() {
         this.access_token = null;
@@ -28,6 +29,14 @@ public class UserTokenState {
 
     public void setExpires_in(Long expires_in) {
         this.expires_in = expires_in;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
 
