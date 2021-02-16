@@ -58,7 +58,7 @@ public class AuthenticationController implements AuthenticationResource {
         Map<String, Object> response = new HashMap<>(); //new
         response.put( "token",new UserTokenState(jws, expiresIn));
         response.put("user details",user);
-        return  ResponseEntity.ok(response.);//new UserTokenState(jws, expiresIn);
+        return  ResponseEntity.ok(response);//new UserTokenState(jws, expiresIn);
     }
 
     @Override

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.stellar.sdk.KeyPair;
 
 import java.util.ArrayList;
@@ -62,4 +63,9 @@ public class AccountCreation implements CreateAccounts {
     public ResponseEntity<?> loadAll() {
         return ResponseEntity.accepted().body(this.acctservice.findAll());
     }
+
+    @Override
+    public ResponseEntity<?> findAcctByUsername(@PathVariable String username) {
+        user1 = us.findByUsername(username);
+        return ResponseEntity.accepted().body(this.acctservice.findByUserId(user1.getId())) ;   }
 }

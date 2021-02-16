@@ -9,5 +9,6 @@ import java.util.Optional;
 public interface AccountService{
     public Account addAccount (Account account);
      public List<Account> findAll();
+     public List<Account> findByUserId(Long userid);
 
 }

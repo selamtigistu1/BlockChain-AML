@@ -21,4 +21,9 @@ public interface CreateAccounts {
     @GET
     @Path("/all")
     public ResponseEntity<?> loadAll();
+
+    @GET
+    @Path("/{username}")
+    public ResponseEntity<?> findAcctByUsername(@PathParam("username") String username);
+
 }
